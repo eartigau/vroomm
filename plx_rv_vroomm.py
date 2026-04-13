@@ -1,3 +1,5 @@
+"""Compare Gaia astrometric velocity constraints with simple VROOMM RV precision scaling."""
+
 from astroquery.gaia import Gaia
 from astropy.table import Table
 import os

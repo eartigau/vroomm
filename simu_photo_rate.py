@@ -1,3 +1,5 @@
+"""Quick photon-rate and integrated SNR scaling calculator for VROOMM scenarios."""
+
 # Import necessary libraries
 import matplotlib.pyplot as plt  # For plotting
 from astropy.table import Table  # For handling tabular data
@@ -28,11 +30,12 @@ def gaussian(x, mu, sig, amp):
     return 1 - amp * np.exp(-np.power(x - mu, 2.) / (2 * np.power(sig, 2.))) * np.sign(sig)
 
 # Simulation parameters
-exptime = 1.0  # Exposure time in seconds
+exptime = 0.25  # Exposure time in seconds
+t_tot = 600
 sampling = 1.0  # Sampling in km/s/pixel
 
 # Apparent magnitude in the r-band
-r_mag = 7
+r_mag = 10
 
 # Wavelength range for the simulation (in nm)
 wave1 = 600  # Start wavelength
@@ -41,13 +44,14 @@ wave2 = 850  # End wavelength
 # Telescope and instrument parameters
 r_primary = 160  # Telescope primary mirror radius in cm
 wave0 = 6204.29  # Central wavelength in Angstroms
-resolution = 120000  # Spectral resolution (lambda/delta_lambda)
+resolution = 80000  # Spectral resolution (lambda/delta_lambda)
 npix = c.value / resolution / 1000  # Pixels per resolution element (in km/s/pixel)
-effic = 0.1  # Efficiency (10%)
+effic = 0.15  # Efficiency (10%)
 
 # Detector parameters
 dark_current = 1.6e-4  # Dark current in e-/s/pixel
 spatial_extent = 10  # Spatial extent in pixels (height of the spectrum)
+spectral_extent = 3
 dark_current *= exptime  # Scale dark current by exposure time
 dark_current *= spatial_extent  # Scale dark current by spatial extent
 
@@ -77,4 +81,6 @@ nphot_per_spec_pix = nphot / npix
 nphot_per_pix = nphot / spatial_extent
 
 # Print the result
-print('Number of photons per pixel: {:.1f}, mag = {}'.format(nphot_per_pix, r_mag))
+print('Number of photons per pixel: {:.2f}, mag = {}'.format(nphot_per_pix, r_mag))
+snr = np.sqrt(nphot_per_pix/exptime*t_tot*spatial_extent*3*spectral_extent)  # SNR calculation
+print('SNR: {:.2f} in {:.2f} min'.format(snr, t_tot/60))

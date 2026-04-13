@@ -1,0 +1,31 @@
+# Byte-compiled / cache
+__pycache__/
+*.py[cod]
+*.pyo
+
+# Virtual environments
+.venv/
+venv/
+env/
+
+# Notebook checkpoints
+.ipynb_checkpoints/
+*.ipynb
+
+# Build and test artifacts
+.pytest_cache/
+.mypy_cache/
+.coverage
+htmlcov/
+
+# OS/editor junk
+.DS_Store
+.vscode/
+.idea/
+
+# Generated plots and PDFs
+*.png
+*.pdf
+
+# Keep tracked documentation figures if needed
+!figures/.gitkeep

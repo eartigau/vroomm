@@ -1,3 +1,5 @@
+"""Monte Carlo CCF simulation for faint-target radial-velocity performance."""
+
 # Import necessary libraries
 import matplotlib.pyplot as plt  # For plotting
 from astropy.table import Table  # For handling tabular data
