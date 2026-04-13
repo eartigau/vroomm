@@ -71,33 +71,6 @@ Expected outputs:
 	- Public-safe, no-private-data plotting script.
 	- Outputs figures in figures/
 
-## Reproducibility Status
-
-This repository currently mixes:
-- Public-run scripts with no private dependencies.
-- Local-data scripts with absolute paths.
-
-Use docs/DATA.md to migrate hard-coded paths to project-relative data locations.
-
-## Known Caveats
-
-- Units are mixed in places (Angstrom, nm, km/s, pixels). Check assumptions before using results in a paper.
-- Most scripts are prototype studies, not packaged software.
-- Several scripts use fixed constants tuned for quick scenario exploration rather than full uncertainty propagation.
-
-## Contributing As A Graduate Student
-
-If you open a merge request, prefer this pattern:
-
-1. Keep scientific logic changes separate from formatting cleanup.
-2. Add one markdown note describing what changed physically and why.
-3. Save all figures to figures/ with descriptive names.
-4. Include one command that reproduces your main result.
-
-## Citation
-
-For internal notes and design reviews, cite the repository URL and commit hash used to generate your results.
-
 ## License
 
 MIT License. See LICENSE.
