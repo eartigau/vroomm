@@ -4,7 +4,7 @@ Design and performance simulation scripts for VROOMM, a high-resolution spectrog
 
 This repository is aimed at exploratory instrument studies and is now documented for new graduate students joining the project.
 
-## What You Can Do With This Repo
+## What You Can Do With This Repo 
 
 - Estimate SNR as a function of magnitude and exposure time.
 - Build first-order photon budget and detectability intuition.
