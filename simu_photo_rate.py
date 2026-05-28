@@ -5,7 +5,41 @@ import matplotlib.pyplot as plt  # For plotting
 from astropy.table import Table  # For handling tabular data
 from astropy.io import fits  # For reading FITS files
 import numpy as np  # For numerical operations
-from etienne_tools import lowpassfilter, doppler  # Custom tools for filtering and Doppler shift
+def lowpassfilter(input_vect, width=101):
+    """Low-pass filter via running NaN-median spline, handling NaN values."""
+    index = np.arange(len(input_vect))
+    xmed = []
+    ymed = []
+    for i in np.arange(-width // 2, len(input_vect) + width // 2, width // 4):
+        low_bound = max(i, 0)
+        high_bound = min(i + int(width), len(input_vect) - 1)
+        pixval = index[low_bound:high_bound]
+        if len(pixval) < 3:
+            continue
+        if np.max(np.isfinite(input_vect[pixval])) == 0:
+            continue
+        xmed.append(np.nanmean(pixval))
+        ymed.append(np.nanmedian(input_vect[pixval]))
+    xmed = np.array(xmed, dtype=float)
+    ymed = np.array(ymed, dtype=float)
+    if len(xmed) < 3:
+        return np.zeros_like(input_vect) + np.nan
+    if len(xmed) != len(np.unique(xmed)):
+        xmed2 = np.unique(xmed)
+        ymed2 = np.zeros_like(xmed2)
+        for i in range(len(xmed2)):
+            ymed2[i] = np.mean(ymed[xmed == xmed2[i]])
+        xmed = xmed2
+        ymed = ymed2
+    spline = ius(xmed, ymed, k=2, ext=3)
+    return spline(np.arange(len(input_vect)))
+
+
+def doppler(wave, v):
+    """Relativistic Doppler shift. v in m/s."""
+    v = np.array(v)
+    wave = np.array(wave)
+    return wave * np.sqrt((1 - v / c.value) / (1 + v / c.value))
 from scipy.interpolate import InterpolatedUnivariateSpline as ius  # For spline interpolation
 from scipy.optimize import curve_fit  # For curve fitting
 from tqdm import tqdm  # For progress bars
