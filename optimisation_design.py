@@ -7,6 +7,9 @@ import matplotlib.pyplot as plt  # For plotting
 #uis
 from scipy.interpolate import InterpolatedUnivariateSpline as ius  # For spline interpolation
 from scipy import constants  # For physical constants
+from pathlib import Path
+
+_DATA_DIR = Path(__file__).parent / 'data'
 
 
 
@@ -30,7 +33,7 @@ def get_magic_grid(wave0=360, wave1=920, dv_grid=0.5):
 flux_file = '/Users/eartigau/vroomm_py/vroomm_simu/data/lte04000-5.00-0.0.PHOENIX-ACES-AGSS-COND-2011-HiRes.fits'
 wave_file = '/Users/eartigau/vroomm_py/vroomm_simu/data/WAVE_PHOENIX-ACES-AGSS-COND-2011.fits'
 
-transmission = Table.read('vroomm-frontend-transmission.csv')
+transmission = Table.read(_DATA_DIR / 'vroomm-frontend-transmission.csv')
 
 wave_trans = transmission['wavelength']
 transmission = transmission['transmission']

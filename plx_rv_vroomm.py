@@ -7,8 +7,10 @@ from astroquery.simbad import Simbad
 import numpy as np
 from tqdm import tqdm
 import matplotlib.pyplot as plt
+from pathlib import Path
 
-gaia_table_name = "/Users/eartigau/vroomm_simu/big_gaia_table.csv"
+_DATA_DIR = Path(__file__).parent / 'data'
+gaia_table_name = _DATA_DIR / 'big_gaia_table.csv'
 
 # on sauvegarde la table localement pour s'économiser le download la prochaine
 # fois

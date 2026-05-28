@@ -6,6 +6,9 @@ from astropy.table import Table
 from scipy.signal import convolve
 from scipy.interpolate import InterpolatedUnivariateSpline as ius
 from scipy.constants  import c
+from pathlib import Path
+
+_DATA_DIR = Path(__file__).parent / 'data'
 
 
 """
@@ -16,7 +19,7 @@ the use of a 2x slicer with a rectangular fiber.
 This is compared with an octogonal fiber with the same area as the rectangular fiber.
 """
 
-template = Table.read('/Users/eartigau/vroomm_simu/data/Template_LHS1140_tc_ESPRESSO.fits')
+template = Table.read(_DATA_DIR / 'Template_LHS1140_tc_ESPRESSO.fits')
 
 # expressed in arcsec
 fib_size = [2.0,2.25,2.5,2.75,3.0,3.25,3.5,3.75]

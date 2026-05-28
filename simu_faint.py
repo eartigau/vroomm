@@ -5,6 +5,7 @@ import matplotlib.pyplot as plt  # For plotting
 from astropy.table import Table  # For handling tabular data
 from astropy.io import fits  # For reading FITS files
 import numpy as np  # For numerical operations
+from pathlib import Path
 def lowpassfilter(input_vect, width=101):
     """Low-pass filter via running NaN-median spline, handling NaN values."""
     index = np.arange(len(input_vect))
@@ -90,7 +91,7 @@ nphot = zp / energ  # Total number of photons
 npot_per_pix = nphot / npix  # Photons per pixel
 
 # Load template spectrum
-tbl = Table.read('/Users/eartigau/vroomm_simu/data/Template_LHS1140_tc_ESPRESSO.fits')
+tbl = Table.read(Path(__file__).parent / 'data' / 'Template_LHS1140_tc_ESPRESSO.fits')
 tbl = tbl[:4 * int(len(tbl) // 4)]  # Trim table to a multiple of 4
 sampling = int(c.value / np.nanmedian(tbl['wavelength'] / np.gradient(tbl['wavelength']))) / 1000.  # Sampling in km/s/pix
 
