@@ -23,9 +23,6 @@ htmlcov/
 .vscode/
 .idea/
 
-# Generated plots and PDFs
-*.png
-*.pdf
 
 # Keep tracked documentation figures if needed
 !figures/.gitkeep
